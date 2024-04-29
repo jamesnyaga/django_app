@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <style>
+        .handwriting {
+            font-family: 'Indie Flower', cursive;
+        }
+    </style>
+    <h1 class="handwriting">Thank You for Visiting!</h1>
+    <p class="handwriting">We're delighted to have had you here. You've been successfully logged out.</p>
+    <small class="text-muted handwriting">Ready to come back? <a href="{% url 'login' %}" class="handwriting">Login</a> again!</small>
+{% endblock content %}

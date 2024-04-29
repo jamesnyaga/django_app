@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <style>
+        .handwriting {
+            font-family: 'Indie Flower', cursive;
+            color: #4CAF50; /* Green color for emphasis */
+        }
+        .social-links {
+            margin-top: 10px;
+        }
+        .social-links a {
+            margin-right: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <h1 class="display-4 handwriting mb-4">Welcome to Our Website!</h1>
+                <p class="lead handwriting">We're thrilled to have you here.</p>
+                <p class="handwriting">Ready to create an account and start posting? <a href="{% url 'register' %}" class="font-weight-bold">Register</a> now!</p>
+                <p class="handwriting">Already have an account? <a href="{% url 'login' %}" class="font-weight-bold">Login</a> here!</p>
+                <div class="social-links">
+                    <p class="handwriting">Connect with us on social media:</p>
+                    <a href="https://www.facebook.com/profile.php?id=61558683462581" class="font-weight-bold" target="_blank"><i class="fab fa-facebook-square mr-1"></i> Facebook</a>
+                    <a href="https://www.instagram.com/rollin9722?igsh=MmM3eWU5ajJsZDgz" class="font-weight-bold" target="_blank"><i class="fab fa-facebook-square mr-1"></i>Instagram</a>
+                    <a href="#" class="font-weight-bold">Twitter</a>
+                    <a href="https://www.youtube.com/channel/UCmfoT_hMn3lRJOXpF8HbXmg/" class="font-weight-bold" target="_blank"><i class="fab fa-facebook-square mr-1"></i>YouTube</a>
+                </div>
+                <hr>
+                <p class="display-4 handwriting mb-0">Welcome and Enjoy Your Time Here!</p>
+                <div class="founder-section">
+                      <p class="lead mb-0 handwriting">Founder of this website</p>
+                      <p class="text-muted handwriting">Muchiri James</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
