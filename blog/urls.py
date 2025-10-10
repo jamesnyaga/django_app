@@ -13,4 +13,8 @@ urlpatterns = [
     path('user/<str:username>/', userPostListView.as_view(), name='user-posts'),
     path('register/', user_views.register, name='user_views'),
     path('about/', views.about, name='blog-about'),
+    path('post/<int:pk>/comment/', views.add_comment, name='add_comment'),
+    path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
+
+
 ]
