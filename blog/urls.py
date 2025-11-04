@@ -15,6 +15,9 @@ urlpatterns = [
     path('about/', views.about, name='blog-about'),
     path('post/<int:pk>/comment/', views.add_comment, name='add_comment'),
     path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
+    path('category/<str:category_name>/', views.category_posts, name='category_posts'),
+    
+
 
 
 ]

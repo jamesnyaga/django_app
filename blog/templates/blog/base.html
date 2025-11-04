@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="Y0OSYew_ipIiNX-5W0HBTknq4X71rN1TJ5Y9qIX6N-o" />
 	 <!-- Required meta tags -->
        <meta charset="utf-8">
        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +15,22 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Rolling is a youth-driven digital platform sharing real stories, news, football updates, and educational insights from across Kenya — crafted with care by James Muchiri and the Rolling Team.">
+    <meta name="keywords" content="Rolling, Kenya News, Football, Education, Entertainment, Blog, Voices That Matter, James Muchiri, Youth Media, Rolling Blog">
+    <meta name="author" content="James Muchiri">
+    <meta name="description" content="Stay updated with football news, live scores, and in-depth match analysis from Kenya and beyond. Rolling Football brings you every goal, every story, every match that matters.">
+    <meta name="keywords" content="Football Kenya, Rolling Football, KPL, Premier League, Sports Kenya, Football News, Rolling, Voices That Matter">
+    <meta name="description" content="Get the latest entertainment updates, celebrity news, and lifestyle stories from Kenya. Rolling Entertainment keeps you connected to the trends and voices that matter.">
+    <meta name="keywords" content="Entertainment Kenya, Celebrities, Rolling Entertainment, Gossip, Kenyan Lifestyle, Music, Movies, Rolling Blog">
+    <meta name="description" content="Breaking news, politics, and community stories from across Kenya — told with truth and purpose. Rolling News brings you the voices that shape our nation.">
+    <meta name="keywords" content="Kenya News, Breaking News, Politics Kenya, Rolling News, Voices That Matter, Kenyan Stories, Current Affairs">
+    <meta name="description" content="Explore student life, university updates, and educational opportunities in Kenya. Rolling Education empowers learners through knowledge and stories that inspire.">
+    <meta name="keywords" content="Education Kenya, Students, Universities, Career Tips, Rolling Education, Learning, Academic News, Rolling Blog">
+    <meta name="description" content="Read powerful opinions and inspiring stories written by young voices across Kenya. Rolling Voices is where perspective meets purpose.">
+    <meta name="keywords" content="Opinions, Rolling Voices, Kenya Features, Inspiring Stories, Youth Blog, Rolling Media">
+    <link rel="shortcut icon" href="{% static 'blog/logo.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'blog/logo.ico' %}" type="image/x-icon">
+
 	{% if title %}
 	    <title>Rolling blog - {{ title }}</title>
 	{% else %}
@@ -19,34 +38,54 @@
 	{% endif %}
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-           <div class="container">
-               <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Rolling Stones</a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                   <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarToggle">
-               <div class="navbar-nav mr-auto">
-                   <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
-                   <a class="nav-item nav-link" href="{%url 'blog-about' %}">About</a>
-               </div>
-               <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-                  {% if user.is_authenticated %}
-                     <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-                     <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                     <a class="nav-item nav-link" href="#" onclick="logout()">Logout</a>
-                  {% else %}
-                      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                      <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                   {% endif %}
+<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <div class="container">
+        <!-- Logo and Brand -->
+        <a class="navbar-brand" href="{% url 'blog-home' %}">
+            <img src="{% static 'blog/logo.png' %}" alt="Rolling Stones Logo" class="d-inline-block align-top rounded-circle" style="height:40px; width:40px; object-fit:cover;">
+            <span class="d-none d-md-inline">Rolling Stones</span>
+        </a>
 
-                  <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-                     {% csrf_token %}
-                  </form>
-                </div>
-           </div>
-        </nav>
+        <!-- Mobile Toggler -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" 
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- Left side -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'blog-home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'blog-about' %}">About</a></li>
+            </ul>
+
+            <!-- Right side -->
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'post-create' %}">New Post</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+
+                {% if user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_home' %}">Prof Dashboard</a></li>
+                {% endif %}
+            </ul>
+
+            <!-- Hidden logout form -->
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+</nav>
+
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
@@ -61,67 +100,37 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <h4 class="card-title">Category Hub / Quick Access Section</h4>
+            <p class='text-muted'>Stay informed with the latest stories across Kenya and beyond.
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-      </div>
-    </main>
-    <!-- Optional JavaScript -->
-    <script>
-        function logout() {
-            var form = document.getElementById('logout-form');
-            form.submit();
-        }
-    </script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'football' %}">⚽ Football</a></li>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'entertainment' %}">🎬 Entertainment</a></li>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'news' %}">📰 News</a></li>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'education' %}">🎓 Education</a></li>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'tech' %}">💻 Tech</a></li>
+                <li class="list-group-item"><a href="{% url 'category_posts' 'others' %}">📦 Others</a></li>
+             </ul>
+         </p>
+     </div>
+ </div>
+</div>
+</main>
 </body>
-    <footer class="footer bg-dark text-light py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Web hub company</h5>
-                <p class="text-muted"> Did you know that we also sell websites? If you're interested in purchasing a website or have any questions, feel free to contact us! Even the website you're currently browsing is available for sale.</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'blog-home' %}" class="text-light">Home</a></li>
-                    <li><a href="{% url 'blog-about' %}" class="text-light">About Us</a></li>
-                    <li><a href="#" class="text-light">Services</a></li>
-                    <li><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Contact Us</h5>
-                <p class="text-muted">44 10301, kiamutugu, kenya</p>
-                <p class="text-muted">Nyagajames1420@gmail.com</p>
-                <p class="text-muted">+254 115 644 962</p>
-            </div>
-        </div>
-        <hr class="bg-light">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="text-muted">&copy; 2024 Rolling_bog.com. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-md-right">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><a href="#" class="text-light">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-light">Terms of Service</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
+    <!-- ✅ Footer -->
+  <footer class="footer bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-2">© 2025 Rolling Blog | Crafted with ❤️ by <a href="https://rolling.pythonanywhere.com/" class="text-info fw-bold text-decoration-none">James Muchiri</a></p>
+      <p class="small text-muted">Web Hub Company | rolling.pythonanywhere.com</p>
     </div>
-</footer>
+  </footer>
+
+  <!-- ✅ Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function logout() {
+    event.preventDefault();
+    document.getElementById('logout-form').submit();
+  }
+</script>
+
 </html>
