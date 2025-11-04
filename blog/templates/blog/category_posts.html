@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block meta %}
+<meta name="description" content="{{ seo_description }}">
+<meta name="keywords" content="{{ seo_keywords }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h3 class="mb-4 text-capitalize">{{ category_name }} Posts</h3>
+  <hr>
+
+  {% for post in posts %}
+    <div class="card mb-4 shadow-sm border-0 rounded-3 overflow-hidden">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 300px; object-fit: cover;">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{% url 'post-detail' post.id %}" class="text-dark text-decoration-none fw-bold">
+            {{ post.title }}
+          </a>
+        </h5>
+        <small class="text-muted d-block mb-2">
+          Posted on {{ post.date_posted|date:"M d, Y" }} by {{ post.author }}
+        </small>
+        <p class="card-text text-secondary">{{ post.content|truncatewords:30 }}</p>
+        <a href="{% url 'post-detail' post.id %}" class="btn btn-success btn-sm px-3 rounded-pill">
+          Read More →
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No posts found in this category yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+

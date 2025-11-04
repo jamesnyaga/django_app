@@ -137,7 +137,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Posts
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content', 'image','category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -168,6 +168,53 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+def category_posts(request, category_name):
+    posts = Posts.objects.filter(category=category_name).order_by('-date_posted')
+    seo_data = {
+    'football': {
+        'title': "Rolling Football — Latest Scores, Analysis & News from Kenya",
+        'description': "Stay updated with football news, live scores, and in-depth match analysis from Kenya and beyond. Rolling Football brings you every goal, every story, every match that matters.",
+        'keywords': "Football Kenya, Rolling Football, KPL, Premier League, Sports Kenya, Football News, Rolling, Voices That Matter",
+        },
+    'education': {
+        'title': "Rolling Education — Student Life, Career Tips & Academic News in Kenya",
+        'description': "Explore student life, university updates, and educational opportunities in Kenya. Rolling Education empowers learners through knowledge and stories that inspire.",
+        'keywords': "Education Kenya, Students, Universities, Career Tips, Rolling Education, Learning, Academic News, Rolling Blog",
+        },
+    'entertainment': {
+        'title': "Rolling Entertainment — Trending Stories, Celebrities & Lifestyle in Kenya",
+        'description': "Get the latest entertainment updates, celebrity news, and lifestyle stories from Kenya. Rolling Entertainment keeps you connected to the trends and voices that matter.",
+        'keywords': "Entertainment Kenya, Celebrities, Rolling Entertainment, Gossip, Kenyan Lifestyle, Music, Movies, Rolling Blog",
+        },
+    'news': {
+        'title': "Rolling News — Breaking News & Stories That Matter in Kenya",
+        'description': "Breaking news, politics, and community stories from across Kenya — told with truth and purpose. Rolling News brings you the voices that shape our nation.",
+        'keywords': "Kenya News, Breaking News, Politics Kenya, Rolling News, Voices That Matter, Kenyan Stories, Current Affairs",
+        },
+    'voices': {
+        'title': "Rolling Voices — Opinions, Features & Stories That Matter",
+        'description': "Read powerful opinions and inspiring stories written by young voices across Kenya. Rolling Voices is where perspective meets purpose.",
+        'keywords': "Opinions, Rolling Voices, Kenya Features, Inspiring Stories, Youth Blog, Rolling Media",
+        },
+    }
+
+    # Default SEO data if category not found
+    seo = seo_data.get(category_name.lower(), {
+        'title': "Rolling — Voices That Matter | News, Football, Education & Entertainment in Kenya",
+        'description': "Rolling is a youth-driven digital platform sharing real stories, news, football updates, and educational insights from across Kenya — crafted with care by James Muchiri and the Rolling Team.",
+        'keywords': "Rolling, Kenya News, Football, Education, Entertainment, Blog, Voices That Matter, James Muchiri, Youth Media",
+    })
+
+    context = {
+        'posts': posts,
+        'category': category_name,
+        'seo_title': seo['title'],
+        'seo_description': seo['description'],
+        'seo_keywords': seo['keywords'],
+    }
+
+    return render(request, 'blog/category_posts.html', context)
+    
 @login_required
 def add_comment(request, pk):
     post = get_object_or_404(Posts, pk=pk)

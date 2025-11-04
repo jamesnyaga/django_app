@@ -1,0 +1,77 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4"> Rolling Dashboard</h2>
+
+  <!-- Cards Section -->
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h5>Total Posts</h5>
+        <h3 class="text-primary fw-bold">{{ total_posts }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h5>Total Views</h5>
+        <h3 class="text-success fw-bold">{{ total_views }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5 class="text-center mb-3">Top 5 Posts by Views</h5>
+      <canvas id="viewsChart"></canvas>
+    </div>
+
+    <div class="col-md-6">
+      <h5 class="text-center mb-3">Posts per Category</h5>
+      <canvas id="categoryChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Bar Chart - Top 5 Posts
+  const viewsChart = new Chart(document.getElementById('viewsChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ top_post_titles|safe }},
+      datasets: [{
+        label: 'Views',
+        data: {{ top_post_views|safe }},
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // Pie Chart - Posts per Category
+  const categoryChart = new Chart(document.getElementById('categoryChart'), {
+    type: 'doughnut',
+    data: {
+      labels: {{ category_names|safe }},
+      datasets: [{
+        data: {{ category_counts|safe }},
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+</script>
+{% endblock %}

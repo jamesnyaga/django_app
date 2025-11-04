@@ -16,6 +16,15 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # for development
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic in production
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -23,15 +32,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a@hpje&ue=ls!=^mk&ev2m%68uyxgqc1yp+e!fs6%ai#0=ddm)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['rolling.pythonanywhere.com']
+#ALLOWED_HOSTS = ['rolling.pythonanywhere.com','localhost:8000',]
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'dashboard.apps.DashboardConfig',
     'crispy_forms',
     'crispy_bootstrap4',
     'django.contrib.admin',
@@ -80,10 +91,18 @@ WSGI_APPLICATION = 'django_web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/Rolling/my_first_blog/django_app/db.sqlite3',  # Full path to the uploaded database
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/home/Rolling/my_first_blog/django_app/db.sqlite3',  # Full path to the uploaded database
+    }
+}
+'''
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -154,3 +173,4 @@ AWS_DEFAULT_ACL = None
 
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_REGION_NAME = 'eu-north-1'
+

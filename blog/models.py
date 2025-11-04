@@ -9,6 +9,18 @@ class Posts(models.Model):
 	title = models.CharField(max_length=100)
 	header_image = models.ImageField(null = True, blank=True, upload_to='blog_images/')
 	content = models.TextField()
+	category = models.CharField(
+        max_length=50,
+        choices=[
+            ('football', 'Football'),
+            ('entertainment', 'Entertainment'),
+            ('news', 'News'),
+            ('education', 'Education'),
+            ('tech', 'Tech'),
+            ('others', 'Others'),
+        ],
+        default='others'
+    )
 	author = models.ForeignKey(User, on_delete = models.CASCADE)
 	date_posted = models.DateTimeField(default=timezone.now)
 	image = models.ImageField(upload_to='post_images/', blank=True, null=True)
