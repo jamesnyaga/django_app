@@ -1,127 +1,132 @@
-{%load static %}
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	 <!-- Required meta tags -->
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Basic meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-       <!-- Bootstrap CSS -->
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- SEO Meta -->
+    <title>Rolling Blog | James Muchiri — Developer, Designer, and Innovator</title>
+    <meta name="description" content="Rolling Blog — personal website of James Muchiri, web developer and creator of interactive Django-based school websites. Learn, grow, and connect through technology.">
+    <meta name="keywords" content="James Muchiri, Rolling Blog, Django Developer, Web Developer Kenya, ABC School Website, EduRolling, PythonAnywhere, Kenya Developer, Portfolio">
+    <meta name="author" content="James Muchiri">
 
-	<link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{% if title %}
-	    <title>Rolling blog - {{ title }}</title>
-	{% else %}
-	      <title>Rolling blog</title>
-	{% endif %}
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="Y0OSYew_ipIiNX-5W0HBTknq4X71rN1TJ5Y9qIX6N-o" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Rolling Blog | James Muchiri">
+    <meta property="og:description" content="Personal blog and portfolio of James Muchiri — Web Developer and creator of EduRolling.">
+    <meta property="og:image" content="{% static 'blog/logo.jpeg' %}">
+    <meta property="og:url" content="https://rolling.pythonanywhere.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rolling Blog | James Muchiri">
+    <meta name="twitter:description" content="Discover projects, tutorials, and insights by James Muchiri.">
+    <meta name="twitter:image" content="{% static 'blog/logo.jpeg' %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://rolling.pythonanywhere.com/">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'blog/logo.jpeg' %}" type="image/png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    <!-- Schema Markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "James Muchiri",
+      "url": "https://rolling.pythonanywhere.com/",
+      "sameAs": [
+        "https://github.com/rollingstones",
+        "https://www.linkedin.com/in/james-muchiri"
+      ],
+      "jobTitle": "Web Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Web Hub Company"
+      },
+      "description": "Django developer and founder of EduRolling — connecting schools, teachers, and students through technology."
+    }
+    </script>
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0078d7">
 </head>
-<body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-           <div class="container">
-               <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Rolling Stones</a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                   <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarToggle">
-               <div class="navbar-nav mr-auto">
-                   <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
-                   <a class="nav-item nav-link" href="{%url 'blog-about' %}">About</a>
-               </div>
-               <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-                  {% if user.is_authenticated %}
-                     <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-                     <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                     <a class="nav-item nav-link" href="#" onclick="logout()">Logout</a>
-                  {% else %}
-                      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                      <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                   {% endif %}
 
-                  <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-                     {% csrf_token %}
-                  </form>
-                </div>
-           </div>
-        </nav>
-    <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% if messages %}
-             {% for message in messages %}
-                <div class="alert alert-{{message.tags}}">
-                     {{message}}
-                </div>
-             {% endfor %}
-          {%endif%}
-          {% block content %}{% endblock %}
+
+<body>
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'blog-home' %}">Rolling Stones</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+          <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
         </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-            </p>
-          </div>
+        <div class="navbar-nav">
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="#" onclick="document.getElementById('logout-form').submit()">Logout</a>
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+              {% csrf_token %}
+            </form>
+          {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+          {% endif %}
         </div>
       </div>
-    </main>
-    <!-- Optional JavaScript -->
-    <script>
-        function logout() {
-            var form = document.getElementById('logout-form');
-            form.submit();
-        }
-    </script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-    <footer class="footer bg-dark text-light py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Web hub company</h5>
-                <p class="text-muted"> Did you know that we also sell websites? If you're interested in purchasing a website or have any questions, feel free to contact us! Even the website you're currently browsing is available for sale.</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'blog-home' %}" class="text-light">Home</a></li>
-                    <li><a href="{% url 'blog-about' %}" class="text-light">About Us</a></li>
-                    <li><a href="#" class="text-light">Services</a></li>
-                    <li><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Contact Us</h5>
-                <p class="text-muted">44 10301, kiamutugu, kenya</p>
-                <p class="text-muted">Nyagajames1420@gmail.com</p>
-                <p class="text-muted">+254 115 644 962</p>
-            </div>
-        </div>
-        <hr class="bg-light">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="text-muted">&copy; 2024 Rolling_bog.com. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-md-right">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><a href="#" class="text-light">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-light">Terms of Service</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
     </div>
-</footer>
+  </nav>
+
+  <!-- ✅ Main Content -->
+  <main role="main" class="container mt-5 pt-4">
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
+          {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-4">
+        <div class="content-section shadow-sm p-3 rounded bg-light">
+          <h5 class="fw-bold text-primary">Quick Access</h5>
+          <ul class="list-group list-group-flush mt-3">
+            <li class="list-group-item"><a href="{% url 'blog-home' %}">Latest Posts</a></li>
+            <li class="list-group-item"><a href="#">Announcements</a></li>
+            <li class="list-group-item"><a href="#">Calendars</a></li>
+            <li class="list-group-item"><a href="#">Coming Soon</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer class="footer bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-2">© 2025 Rolling Blog | Crafted with ❤️ by <a href="https://rolling.pythonanywhere.com/" class="text-info fw-bold text-decoration-none">James Muchiri</a></p>
+      <p class="small text-muted">Web Hub Company | rolling.pythonanywhere.com</p>
+    </div>
+  </footer>
+
+  <!-- ✅ Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
