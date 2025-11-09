@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 {%load static %}
 <!DOCTYPE html>
 <html>
@@ -14,6 +21,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 	<meta charset="utf-8">
+    <meta name="description" content="{{ meta_description }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Rolling is a youth-driven digital platform sharing real stories, news, football updates, and educational insights from across Kenya — crafted with care by James Muchiri and the Rolling Team.">
     <meta name="keywords" content="Rolling, Kenya News, Football, Education, Entertainment, Blog, Voices That Matter, James Muchiri, Youth Media, Rolling Blog">
@@ -47,7 +55,7 @@
         </a>
 
         <!-- Mobile Toggler -->
-       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
         </button>
