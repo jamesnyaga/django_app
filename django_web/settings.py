@@ -32,10 +32,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = 'django-insecure-a@hpje&ue=ls!=^mk&ev2m%68uyxgqc1yp+e!fs6%ai#0=ddm)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ['rolling.pythonanywhere.com','localhost:8000',]
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['rolling.pythonanywhere.com']
+
 
 # Application definition
 

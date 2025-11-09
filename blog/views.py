@@ -96,6 +96,7 @@ from django.views.generic import (
 )
 from .models import Posts, Comment
 from .forms import CommentForm
+from dashboard.models import PostView
 
 def home(request):
     context = {
@@ -223,7 +224,7 @@ def category_posts(request, category_name):
     }
 
     return render(request, 'blog/category_posts.html', context)
-    
+
 @login_required
 def add_comment(request, pk):
     post = get_object_or_404(Posts, pk=pk)
