@@ -23,7 +23,7 @@ class Posts(models.Model):
         default='others'
     )
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(unique=False, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
     meta_description = models.CharField(max_length=160, blank=True, help_text="SEO meta description for the post")
     date_posted = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
@@ -48,11 +48,9 @@ class Posts(models.Model):
     def __str__(self):
         return self.title
 
-    def __str__(self):
-        return self.title
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk':self.pk})
+         return reverse('post-detail', kwargs={'slug': self.slug})
 
 
 

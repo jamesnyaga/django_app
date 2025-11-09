@@ -96,10 +96,12 @@ from django.views.generic import (
 )
 from .models import Posts, Comment
 from .forms import CommentForm
+from dashboard.models import PostView
+
 
 def home(request):
     context = {
-        'posts': Post.objects.all()
+        'posts': Posts.objects.all()
     }
     return render(request, 'blog/home.html', context)
 
