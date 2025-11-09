@@ -1,4 +1,4 @@
-# dashboard/views.py
+
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from blog.models import Posts

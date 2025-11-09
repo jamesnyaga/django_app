@@ -132,10 +132,15 @@ class PostDetailView(DetailView):
         context['comments'] = post.comments.all().order_by('-created_at')
         context['form'] = CommentForm()
         context['meta_description'] = post.meta_description if post.meta_description else post.content[:150]
+        # Track view
+        ip = self.request.META.get('REMOTE_ADDR')
+        if ip:  # optional: avoid empty IP
+            PostView.objects.get_or_create(post=post, ip_address=ip)
         return context
 
     def get_object(self, queryset=None):
         return Posts.objects.get(slug=self.kwargs['slug'])
+
 
 
 
