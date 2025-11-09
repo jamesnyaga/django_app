@@ -10,11 +10,11 @@
             <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
         </div>
 
-        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+        <h2><a class="article-title" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h2>
 
         <!-- Display post image if it exists -->
         {% if post.image %}
-        <a href="{% url 'post-detail' post.id %}">
+        <a href="{% url 'post-detail' post.slug %}">
             <img 
                 src="{{ post.image.url }}" 
                 alt="{{ post.title }}" 

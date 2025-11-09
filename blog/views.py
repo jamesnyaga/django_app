@@ -131,7 +131,11 @@ class PostDetailView(DetailView):
         post = self.get_object()
         context['comments'] = post.comments.all().order_by('-created_at')
         context['form'] = CommentForm()
+        context['meta_description'] = post.meta_description if post.meta_description else post.content[:150]
         return context
+
+    def get_object(self, queryset=None):
+        return Posts.objects.get(slug=self.kwargs['slug'])
 
 
 
